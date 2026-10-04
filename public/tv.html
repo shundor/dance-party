@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dance Party! — TV</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪩</text></svg>" />
+    <link rel="stylesheet" href="/style.css" />
+    <style>
+      html, body { height: 100%; overflow: hidden; background: #000; }
+      #player-wrap { position: fixed; inset: 0; }
+      #player-wrap iframe { width: 100%; height: 100%; border: 0; }
+
+      .join-badge {
+        position: fixed; top: 2.5vh; right: 2vw; z-index: 5;
+        display: flex; align-items: center; gap: 1.2vw;
+        background: rgba(13, 18, 28, 0.85); border: 2px solid rgba(255, 255, 255, 0.15);
+        border-radius: 2vh; padding: 1.2vh 1.4vw;
+        backdrop-filter: blur(8px);
+      }
+      .join-badge .qr img { width: 11vh; height: 11vh; border-radius: 1vh; background: #fff; }
+      .join-badge .lbl { font-size: 1.8vh; font-weight: 800; color: var(--muted); text-transform: uppercase; }
+      .join-badge .code { font-size: 5.5vh; font-weight: 900; letter-spacing: 0.6vh; line-height: 1; }
+      .join-badge .url { font-size: 1.8vh; font-weight: 700; margin-top: 0.4vh; }
+
+      .lower-third {
+        position: fixed; left: 3vw; bottom: 5vh; z-index: 5; max-width: 60vw;
+        background: rgba(13, 18, 28, 0.85); border-left: 1vh solid var(--brand-2);
+        border-radius: 1.5vh; padding: 2vh 2.5vw;
+        transition: opacity 0.6s, transform 0.6s;
+      }
+      .lower-third.off { opacity: 0; transform: translateY(3vh); }
+      .lower-third .t { font-size: 3.4vh; font-weight: 900; }
+      .lower-third .s { font-size: 2.2vh; color: var(--muted); font-weight: 700; margin-top: 0.6vh; }
+      .lower-third .n { font-size: 2vh; margin-top: 1.2vh; font-weight: 700; }
+
+      #idle {
+        position: fixed; inset: 0; z-index: 4;
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3vh;
+        background: var(--bg);
+        border-top: 1.2vh solid var(--brand);
+        border-bottom: 1.2vh solid var(--brand-2);
+        text-align: center;
+      }
+      #idle h1 { font-size: 13vh; margin: 0; font-style: italic; font-weight: 900; letter-spacing: -0.5vh; }
+      #idle .how { font-size: 3.4vh; font-weight: 700; color: var(--muted); }
+      #idle .how b { color: var(--text); }
+      #idle .bigcode { font-size: 16vh; font-weight: 900; letter-spacing: 2vh; line-height: 1; }
+      #idle .qr img { width: 26vh; height: 26vh; border-radius: 2vh; background: #fff; }
+      #idle .row { display: flex; align-items: center; gap: 5vw; }
+
+      #start {
+        position: fixed; inset: 0; z-index: 20; display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: 3vh; background: rgba(0, 0, 0, 0.6); cursor: pointer;
+      }
+      #start button { font-size: 4vh; padding: 2.5vh 5vw; margin: 0; width: auto; }
+      #start p { color: var(--muted); font-weight: 600; font-size: 2.2vh; max-width: 60vw; text-align: center; }
+      #hint { position: fixed; left: 2vw; right: 2vw; bottom: 2vh; z-index: 25; padding: 1.2vh 2vw; border-radius: 1vh; background: rgba(0,0,0,.8); color: #ffd166; font-size: 2.2vh; font-weight: 700; text-align: center; }
+      #fatal { position: fixed; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center; font-size: 3vh; font-weight: 800; background: var(--bg); padding: 5vw; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <div id="player-wrap"><div id="player"></div></div>
+
+    <div id="idle">
+      <h1>Dance Party!</h1>
+      <div class="row">
+        <div id="idle-qr" class="qr"></div>
+        <div>
+          <div class="how">Go to <b id="idle-url"></b></div>
+          <div class="how">and enter room code</div>
+          <div class="bigcode" id="idle-code"></div>
+        </div>
+      </div>
+      <div class="how">Add a YouTube song from your phone to start the party 🪩</div>
+    </div>
+
+    <div class="join-badge hidden" id="badge">
+      <div id="badge-qr" class="qr"></div>
+      <div>
+        <div class="lbl">Room code</div>
+        <div class="code" id="badge-code"></div>
+        <div class="url" id="badge-url"></div>
+      </div>
+    </div>
+
+    <div class="lower-third off" id="l3">
+      <div class="t" id="l3-title"></div>
+      <div class="s" id="l3-sub"></div>
+      <div class="n" id="l3-next"></div>
+    </div>
+
+    <div id="start" class="hidden">
+      <button class="btn-play" id="start-btn" type="button">🔊 Click for sound</button>
+      <p>This browser blocked sound until someone clicks the page. Click once and the party continues with sound.</p>
+    </div>
+
+    <div id="fatal" class="hidden"></div>
+    <div id="hint" class="hidden"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/tv.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+  </body>
+</html>

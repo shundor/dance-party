@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#6d4cff" />
+    <title>Dance Party!</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪩</text></svg>" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1 class="logo">Dance Party!</h1>
+      <span class="side" id="who"></span>
+    </header>
+    <main>
+      <section class="card">
+        <h2 class="section-title">Now playing <span id="paused" class="badge hidden">PAUSED</span></h2>
+        <div id="now"></div>
+        <div id="admin-controls" class="controls hidden">
+          <button id="toggle" type="button">⏯ Play / Pause</button>
+          <button id="skip" type="button">⏭ Skip</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">Add a song <span id="limit"></span></h2>
+        <form id="add" class="add-row" autocomplete="off">
+          <input id="add-input" class="big" placeholder="Paste a YouTube link" enterkeyhint="go" />
+          <button type="submit" id="add-btn">ADD</button>
+        </form>
+        <div id="results"></div>
+        <p class="hint history-link"><a href="/history">Pick from songs played before ›</a></p>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">Up next <span id="queue-count"></span></h2>
+        <div id="queue"></div>
+      </section>
+
+      <p class="hint"><button id="leave" type="button" class="link-btn">Leave room</button></p>
+    </main>
+    <div id="toast" class="toast hidden"></div>
+    <script src="/help.js" type="module"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/remote.js" type="module"></script>
+  </body>
+</html>

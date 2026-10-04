@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dance Party! · A self-hosted YouTube jukebox for parties</title>
+    <meta name="description" content="Guests queue YouTube songs from their phones; the video plays on your TV via AirPlay, Chromecast or HDMI. Join with a 4-letter room code, jackbox-style." />
+    <meta property="og:title" content="Dance Party! 🪩" />
+    <meta property="og:description" content="A self-hosted YouTube jukebox. Guests queue songs from their phones, the party plays on the big screen." />
+    <meta property="og:image" content="screenshots/tv.png" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪩</text></svg>" />
+    <link rel="stylesheet" href="site.css" />
+  </head>
+  <body>
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+
+    <nav class="nav">
+      <a class="logo" href="#">🪩 <span>Dance Party!</span></a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#tv">Your TV</a>
+        <a href="#start">Get started</a>
+        <a class="btn btn-small" href="https://github.com/shundor/dance-party">GitHub</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <p class="eyebrow">Self-hosted · Open source · No app to install</p>
+      <h1>Turn any TV into a<br /><span class="grad">party jukebox.</span></h1>
+      <p class="lede">
+        Guests scan the code on screen, punch in a 4-letter room code, and queue YouTube songs from their phones.
+        The video plays on the big screen. You stay in control.
+      </p>
+      <div class="cta">
+        <a class="btn" href="#start">Get started</a>
+        <a class="btn btn-ghost" href="https://github.com/shundor/dance-party">View on GitHub →</a>
+      </div>
+
+      <figure class="tv">
+        <div class="tv-screen"><img src="screenshots/tv.png" alt="The TV player showing a video, the room code and what's up next" /></div>
+        <div class="tv-stand"></div>
+        <figcaption>The TV player shows the video full screen, with the room code, a QR code to join, and what's up next.</figcaption>
+      </figure>
+    </header>
+
+    <section class="phones-section">
+      <h2>Your phone is the remote.</h2>
+      <p class="sub">Works in any mobile browser. Join like jackbox.tv: room code + name, and you're in.</p>
+      <div class="phones">
+        <figure class="phone phone-join tilt-l">
+          <img src="screenshots/join.png" alt="Join screen with room code and name fields" loading="lazy" />
+          <figcaption>Join</figcaption>
+        </figure>
+        <figure class="phone">
+          <img src="screenshots/search.png" alt="Search results for a song with add buttons" loading="lazy" />
+          <figcaption>Search &amp; add</figcaption>
+        </figure>
+        <figure class="phone">
+          <img src="screenshots/guest.png" alt="Guest view with now playing and up next" loading="lazy" />
+          <figcaption>Guest</figcaption>
+        </figure>
+        <figure class="phone tilt-r">
+          <img src="screenshots/admin.png" alt="Admin view with play, pause, skip, promote and remove" loading="lazy" />
+          <figcaption>Admin</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="features">
+      <h2>Everything a party needs.</h2>
+      <div class="grid">
+        <article class="feature">
+          <div class="icon">🔢</div>
+          <h3>Jackbox-style joining</h3>
+          <p>A 4-letter room code and a QR code on the TV. No accounts, no app store.</p>
+        </article>
+        <article class="feature">
+          <div class="icon">🔎</div>
+          <h3>Search or paste</h3>
+          <p>Search YouTube in the app, or paste any link: youtu.be, Shorts, Music, embeds, mobile links.</p>
+        </article>
+        <article class="feature">
+          <div class="icon">👑</div>
+          <h3>Hosts stay in charge</h3>
+          <p>Admins can remove, promote to next, play/pause and skip. Guests get a fair-share queue limit.</p>
+        </article>
+        <article class="feature">
+          <div class="icon">⚡</div>
+          <h3>Live everywhere</h3>
+          <p>Every phone and screen updates instantly over WebSockets. Add a song to an empty queue and it plays.</p>
+        </article>
+        <article class="feature">
+          <div class="icon">📜</div>
+          <h3>Play history</h3>
+          <p>Every song ever played, searchable and grouped by day. Tap <b>+</b> to bring a banger back.</p>
+        </article>
+        <article class="feature">
+          <div class="icon">🛟</div>
+          <h3>Skips the duds</h3>
+          <p>Videos that can't be embedded are skipped automatically, so the music never stops.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="board">
+      <div class="board-copy">
+        <h2>A queue board for the room.</h2>
+        <p class="sub">
+          Put <code>/queue</code> on a laptop or second screen: <b>Now playing</b>, <b>Up next</b> and <b>Recently played</b>,
+          updating live. Read-only, so anyone can watch and nobody can meddle.
+        </p>
+      </div>
+      <img class="shot" src="screenshots/queue.png" alt="Queue board with now playing, up next and recently played columns" loading="lazy" />
+    </section>
+
+    <section id="how">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><span>1</span><h3>Start the server</h3><p>Run it on any computer on your Wi-Fi. It prints the room code and links.</p></li>
+        <li><span>2</span><h3>Open the TV player</h3><p>Put the player page on the big screen. It waits with the room code and QR.</p></li>
+        <li><span>3</span><h3>Guests join</h3><p>Phones scan the QR or open the link, enter the code and a name.</p></li>
+        <li><span>4</span><h3>Dance 🪩</h3><p>Songs play in order. Hosts promote, skip and tidy up from their phones.</p></li>
+      </ol>
+    </section>
+
+    <section id="tv">
+      <h2>Works with the TV you have.</h2>
+      <p class="sub">The player is just a web page, so if it can show a browser window, it can host the party.</p>
+      <div class="grid tv-grid">
+        <article class="feature"><div class="icon">🔌</div><h3>HDMI</h3><p>Plug a laptop into the TV and go full screen. The most reliable option.</p></article>
+        <article class="feature"><div class="icon">📡</div><h3>AirPlay</h3><p>Mirror or extend a Mac or iPad to an Apple TV or AirPlay-capable TV.</p></article>
+        <article class="feature"><div class="icon">📺</div><h3>Chromecast</h3><p>Cast the Chrome tab or screen to a Chromecast or Google TV.</p></article>
+        <article class="feature"><div class="icon">🌐</div><h3>TV browser</h3><p>Smart TV with a decent browser? Open the player URL right on the TV.</p></article>
+      </div>
+    </section>
+
+    <section id="start">
+      <h2>Get started in a minute.</h2>
+      <p class="sub">Requires Node.js 22+. A YouTube Data API key is optional (it turns on in-app search).</p>
+      <pre class="code"><code><span class="c"># grab it</span>
+git clone https://github.com/shundor/dance-party.git
+cd dance-party && npm install
+
+<span class="c"># set ADMIN_PIN, TV_KEY, optionally YOUTUBE_API_KEY</span>
+cp .env.example .env
+
+<span class="c"># party</span>
+npm start</code></pre>
+      <div class="roles">
+        <table>
+          <thead><tr><th></th><th>Guest</th><th>Admin</th></tr></thead>
+          <tbody>
+            <tr><td>Add songs (search or paste a link)</td><td>✅ up to 3 waiting</td><td>✅ unlimited</td></tr>
+            <tr><td>Re-queue from history</td><td>✅</td><td>✅</td></tr>
+            <tr><td>Remove songs</td><td>—</td><td>✅</td></tr>
+            <tr><td>Promote to play next</td><td>—</td><td>✅</td></tr>
+            <tr><td>Play / pause, skip</td><td>—</td><td>✅</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cta">
+        <a class="btn" href="https://github.com/shundor/dance-party#setup">Read the setup guide</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>🪩 Dance Party! · Built with Node.js, Express, Socket.IO and SQLite · <a href="https://github.com/shundor/dance-party">GitHub</a></p>
+    </footer>
+  </body>
+</html>

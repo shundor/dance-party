@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#6d4cff" />
+    <title>Dance Party! — Queue</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪩</text></svg>" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1 class="logo">Dance Party!</h1>
+      <a class="side join-link" href="/">Join ›</a>
+    </header>
+    <main class="queue-page">
+      <div id="offline" class="offline hidden" role="status">Reconnecting…</div>
+      <section class="card col-now">
+        <h2 class="section-title">Now playing <span id="paused" class="badge hidden">PAUSED</span></h2>
+        <div id="now"><div class="empty">Loading…</div></div>
+      </section>
+      <section class="card col-next">
+        <h2 class="section-title">Up next <span id="queue-count"></span></h2>
+        <div id="queue"></div>
+      </section>
+      <section class="card col-recent">
+        <h2 class="section-title">Recently played <a href="/history">Full history ›</a></h2>
+        <div id="recent"></div>
+      </section>
+    </main>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/queue.js" type="module"></script>
+  </body>
+</html>
