@@ -39,6 +39,20 @@ cp .env.example .env   # then edit ADMIN_PIN, TV_KEY, optionally YOUTUBE_API_KEY
 npm start
 ```
 
+### Docker
+
+```bash
+cp .env.example .env   # set ADMIN_PIN, TV_KEY, PUBLIC_URL and TV_HOST
+docker compose up -d
+docker compose logs dance-party   # room code and URLs
+```
+
+Inside a container the server can't detect your computer's LAN address or name, so set them in `.env`:
+- `PUBLIC_URL`: the address phones should open, e.g. `http://192.168.1.50:3000`
+- `TV_HOST`: the hostname the TV should use, e.g. `mymac.local` or `192-168-1-50.nip.io`
+
+The database lives in the `dance-party-data` volume, so the queue, history and room code survive restarts and upgrades. To update, run `git pull && docker compose up -d --build`.
+
 On startup, the server prints the room code, the phone URL and the TV player URL:
 
 ```
